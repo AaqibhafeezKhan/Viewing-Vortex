@@ -1,0 +1,44 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Media Picker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Media Picker</h1>
+            <div class="nav-buttons">
+                <button class="nav-btn active" data-section="movie">Movies</button>
+                <button class="nav-btn" data-section="tv">TV Shows</button>
+                <!-- <button class="nav-btn" data-section="book">Books</button> -->
+            </div>
+            <div class="header-controls">
+                <!-- <button id="theme-toggle"><i class="fas fa-moon"></i></button> -->
+                <button id="favorites-toggle"><i class="fas fa-heart"></i></button>
+            </div>
+        </nav>
+        <div class="filters" id="filters"></div>
+    </header>
+
+    <main>
+        <section id="movie" class="picker-section active"></section>
+        <section id="tv" class="picker-section"></section>
+        <section id="book" class="picker-section"></section>
+
+        <aside id="favorites-sidebar">
+            <div class="favorites-header">
+                <h2>Favorites</h2>
+                <button id="close-favorites">&times;</button>
+            </div>
+            <div id="favorites-list"></div>
+        </aside>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
