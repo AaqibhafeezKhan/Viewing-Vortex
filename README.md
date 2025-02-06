@@ -1,6 +1,4 @@
-Below is a sample `README.md` for your project:
 
----
 
 # Viewing Vortex
 
