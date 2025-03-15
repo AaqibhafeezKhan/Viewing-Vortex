@@ -3,22 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Random Media Picker</title>
+  <title>Curated Media Explorer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <nav>
-      <h1>Media Picker</h1>
+      <div class="logo-container">
+        <i class="fas fa-film logo-icon"></i>
+        <h1>Media<span>Curator</span></h1>
+      </div>
       <div class="nav-buttons">
-        <button class="nav-btn active" data-section="movie">Movies</button>
-        <button class="nav-btn" data-section="tv">TV Shows</button>
-        <!-- <button class="nav-btn" data-section="book">Books</button> -->
+        <button class="nav-btn active" data-section="movie">
+          <i class="fas fa-film"></i>
+          <span>Movies</span>
+        </button>
+        <button class="nav-btn" data-section="tv">
+          <i class="fas fa-tv"></i>
+          <span>TV Shows</span>
+        </button>
+        <!-- <button class="nav-btn" data-section="book">
+          <i class="fas fa-book"></i>
+          <span>Books</span>
+        </button> -->
       </div>
       <div class="header-controls">
-        <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-        <button id="favorites-toggle"><i class="fas fa-heart"></i></button>
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button id="favorites-toggle" class="icon-btn" aria-label="Show favorites">
+          <i class="fas fa-heart"></i>
+        </button>
       </div>
     </nav>
     <div class="filters" id="filters"></div>
@@ -31,8 +50,10 @@
 
     <aside id="favorites-sidebar">
       <div class="favorites-header">
-        <h2>Favorites</h2>
-        <button id="close-favorites">&times;</button>
+        <h2><i class="fas fa-heart"></i> My Collection</h2>
+        <button id="close-favorites" class="icon-btn" aria-label="Close favorites">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
       <div id="favorites-list"></div>
     </aside>
