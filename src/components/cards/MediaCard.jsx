@@ -1,5 +1,5 @@
-import { useState, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { RefreshCw, Heart, Eye, Share2, PlayCircle, BookOpen, ExternalLink, Star, Clock, Calendar, Layers } from 'lucide-react';
 import useStore from '../../store/useStore.js';
 import { TMDB_IMAGE_BASE } from '../../api/constants.js';
@@ -17,7 +17,8 @@ import html2canvas from 'html2canvas';
 export default function MediaCard({ data, type, onPickAnother, onSelectSimilar, cardRef: externalRef }) {
   const { addFavorite, markWatched, favorites } = useStore();
   const [confetti, setConfetti] = useState(false);
-  const cardRef = externalRef || useRef();
+  const fallbackRef = useRef(null);
+  const cardRef = externalRef || fallbackRef;
   const { writeHash } = useShareHash();
 
   if (!data) return null;
@@ -178,6 +179,9 @@ export default function MediaCard({ data, type, onPickAnother, onSelectSimilar, 
                 <ExternalLink size={15} /> Open Library
               </Button>
             )}
+            <Button variant="outline" onClick={handleDownloadCard} aria-label="Download Card as PNG">
+              <Share2 size={15} /> Download PNG
+            </Button>
           </div>
         </div>
       </div>
