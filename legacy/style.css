@@ -265,6 +265,7 @@ main {
     color: var(--text-secondary);
     display: -webkit-box;
     -webkit-line-clamp: 5;
+    line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -532,6 +533,7 @@ main {
     
     .description {
         -webkit-line-clamp: 3;
+        line-clamp: 3;
     }
     
     .action-buttons {

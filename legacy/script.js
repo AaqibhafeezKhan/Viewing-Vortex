@@ -1,4 +1,4 @@
-const TMDB_API_KEY = 'e1397be1c562b21fb75ae207765852dc';
+const TMDB_API_KEY = import.meta.env?.VITE_TMDB_API_KEY;
 
 class MediaPicker {
     constructor(type, updateCallback) {
@@ -208,7 +208,7 @@ class MediaPicker {
       <i class="fab fa-youtube"></i> Watch Trailer
     </button>` :
                 '';
-        } catch (error) {
+        } catch {
             return '';
         }
     }
