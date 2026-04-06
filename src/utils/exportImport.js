@@ -28,8 +28,8 @@ export function importWatchlist(file) {
 
 export function mergeWatchlists(existing, imported) {
   const dedup = (arr, newArr) => {
-    const ids = new Set(arr.map((i) => i.data?.id));
-    const extra = newArr.filter((i) => !ids.has(i.data?.id));
+    const keys = new Set(arr.map((i) => `${i.type}-${i.data?.id}`));
+    const extra = newArr.filter((i) => !keys.has(`${i.type}-${i.data?.id}`));
     return [...arr, ...extra];
   };
   return {

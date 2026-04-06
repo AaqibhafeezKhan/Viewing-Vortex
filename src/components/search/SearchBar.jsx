@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Clock } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { searchMulti } from '../../api/tmdb.js';
@@ -85,15 +85,15 @@ export default function SearchBar() {
   return (
     <AnimatePresence>
       {searchOpen && (
-        <motion.div
+        <Motion.div
           className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setSearchOpen(false)} />
+          <Motion.div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setSearchOpen(false)} />
 
-          <motion.div
+          <Motion.div
             className="relative z-10 w-full max-w-xl rounded-2xl overflow-hidden shadow-2xl"
             style={{ background: 'var(--card-bg)', border: '1px solid rgba(255,255,255,0.1)' }}
             initial={{ y: -20, scale: 0.97, opacity: 0 }}
@@ -194,8 +194,8 @@ export default function SearchBar() {
             <div className="px-4 py-2 border-t text-[10px] flex gap-4" style={{ borderColor: 'rgba(255,255,255,0.06)', color: 'var(--text-secondary)' }}>
               <span>↑↓ Navigate</span><span>Enter Select</span><span>Esc Close</span>
             </div>
-          </motion.div>
-        </motion.div>
+          </Motion.div>
+        </Motion.div>
       )}
     </AnimatePresence>
   );

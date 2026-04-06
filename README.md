@@ -4,7 +4,7 @@ Viewing Vortex is a modern web application for discovering random movies, TV sho
 
 **[Looking for the classic experience? → Legacy App](/legacy/index.html)**
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Framework**: React 18 (Vite)
 - **Styling**: Tailwind CSS v3 + CSS Variables
@@ -14,7 +14,7 @@ Viewing Vortex is a modern web application for discovering random movies, TV sho
 - **Animation**: Framer Motion
 - **Additional Tools**: Lucide React (Icons), Recharts (Stats Dashboard), html2canvas (Image Sharing), Vite PWA.
 
-## ✨ Features
+## Features
 
 1. **Random Discovery**: Discover media across three distinct categories: Movies, TV Shows, and Books.
 2. **Advanced Filtering**: Use debounced smart filters like Year Sliders, Genre Pills, and Ratings to refine your picks.
@@ -44,4 +44,4 @@ Viewing Vortex is a modern web application for discovering random movies, TV sho
    npm test
    ```
 
-*Enjoy exploring the Vortex!*
+_Enjoy exploring the Vortex!_

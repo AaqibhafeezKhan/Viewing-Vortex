@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { discoverMedia, getMediaDetails } from '../../api/tmdb.js';
 import { getRandomBook } from '../../api/openLibrary.js';
@@ -23,7 +23,7 @@ export default function SectionView({ type }) {
     setSeed((s) => s + 1);
   }, [setSelectedMedia]);
 
-  useKeyboard(pickAnother);
+  useKeyboard({ onPickAnother: pickAnother });
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['media', type, filters, seed, specificId],
@@ -60,13 +60,13 @@ export default function SectionView({ type }) {
 
       <AnimatePresence mode="wait">
         {isLoading && (
-          <motion.div key="skeleton" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <Motion.div key="skeleton" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <SkeletonCard />
-          </motion.div>
+          </Motion.div>
         )}
 
         {isError && !isLoading && (
-          <motion.div
+          <Motion.div
             key="error"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
             className="max-w-lg mx-auto text-center py-16 px-6 rounded-2xl"
@@ -80,11 +80,11 @@ export default function SectionView({ type }) {
             <Button variant="primary" onClick={pickAnother}>
               <RefreshCw size={15} /> Try Again
             </Button>
-          </motion.div>
+          </Motion.div>
         )}
 
         {data && !isLoading && !isError && (
-          <motion.div key={`${type}-${data.id || seed}`} className="w-full">
+          <Motion.div key={`${type}-${data.id || seed}`} className="w-full">
             <MediaCard
               data={data}
               type={type}
@@ -92,7 +92,7 @@ export default function SectionView({ type }) {
               onSelectSimilar={handleSelectSimilar}
               cardRef={cardRef}
             />
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </div>

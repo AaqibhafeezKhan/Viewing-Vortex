@@ -23,7 +23,6 @@ const queryClient = new QueryClient({
 export default function App() {
   const { theme, activeSection } = useStore();
 
-  // Apply theme on mount + when it changes
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
@@ -43,7 +42,6 @@ export default function App() {
 
         <Footer />
 
-        {/* Global overlays */}
         <Sidebar />
         <SearchBar />
         <VortexMode />

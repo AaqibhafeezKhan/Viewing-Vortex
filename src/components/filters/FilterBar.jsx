@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { Filter, X, ChevronDown, RotateCcw } from 'lucide-react';
 import useStore from '../../store/useStore.js';
 import { useGenres } from '../../hooks/useMedia.js';
@@ -22,7 +22,7 @@ export default function FilterBar({ type }) {
     <div className="max-w-4xl mx-auto w-full">
       {/* Toggle button */}
       <div className="flex items-center gap-3">
-        <motion.button
+        <Motion.button
           onClick={() => setOpen(!open)}
           className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all"
           style={{ background: open ? 'var(--secondary-color)' : 'rgba(255,255,255,0.08)', color: open ? 'white' : 'var(--text-primary)' }}
@@ -39,7 +39,7 @@ export default function FilterBar({ type }) {
             </span>
           )}
           <ChevronDown size={14} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
-        </motion.button>
+        </Motion.button>
 
         {activeCount > 0 && (
           <button onClick={resetFilters} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
@@ -53,7 +53,7 @@ export default function FilterBar({ type }) {
       {/* Filter panel */}
       <AnimatePresence>
         {open && (
-          <motion.div
+          <Motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -139,7 +139,7 @@ export default function FilterBar({ type }) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </div>

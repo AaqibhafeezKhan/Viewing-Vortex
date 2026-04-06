@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+
 import { RefreshCw, Heart, Eye, Share2, PlayCircle, BookOpen, ExternalLink, Star, Clock, Calendar, Layers } from 'lucide-react';
 import useStore from '../../store/useStore.js';
 import { TMDB_IMAGE_BASE } from '../../api/constants.js';
@@ -13,6 +13,8 @@ import Confetti from '../ui/Confetti.jsx';
 import { toast } from '../../hooks/useToast.js';
 import { useShareHash } from '../../hooks/useShareHash.js';
 import html2canvas from 'html2canvas';
+import { useKeyboard } from '../../hooks/useKeyboard.js';
+import { motion as Motion } from 'framer-motion';
 
 export default function MediaCard({ data, type, onPickAnother, onSelectSimilar, cardRef: externalRef }) {
   const { addFavorite, markWatched, favorites } = useStore();
@@ -20,6 +22,12 @@ export default function MediaCard({ data, type, onPickAnother, onSelectSimilar, 
   const fallbackRef = useRef(null);
   const cardRef = externalRef || fallbackRef;
   const { writeHash } = useShareHash();
+
+  useKeyboard({
+    onPickAnother,
+    onSave: () => handleSave(),
+    onWatched: () => handleWatched(),
+  });
 
   if (!data) return null;
 
@@ -72,7 +80,7 @@ export default function MediaCard({ data, type, onPickAnother, onSelectSimilar, 
   };
 
   return (
-    <motion.div
+    <Motion.div
       ref={cardRef}
       className="max-w-4xl mx-auto rounded-2xl overflow-hidden relative"
       style={{ background: 'var(--card-bg)', boxShadow: 'var(--shadow-lg)' }}
@@ -185,7 +193,7 @@ export default function MediaCard({ data, type, onPickAnother, onSelectSimilar, 
           </div>
         </div>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 }
 

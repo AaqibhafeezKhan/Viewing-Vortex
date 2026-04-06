@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const MAX_TOASTS = 3;
 
@@ -6,7 +6,10 @@ let _setToasts = null;
 
 export function useToastManager() {
   const [toasts, setToasts] = useState([]);
-  _setToasts = setToasts;
+  useEffect(() => {
+    _setToasts = setToasts;
+    return () => { _setToasts = null; };
+  }, [setToasts]);
   return toasts;
 }
 

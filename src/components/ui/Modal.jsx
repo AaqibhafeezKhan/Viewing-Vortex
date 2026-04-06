@@ -1,23 +1,21 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
 export default function Modal({ open, onClose, title, children, wide = false }) {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <Motion.div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {/* Backdrop */}
-          <motion.div
+          <Motion.div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={onClose}
           />
-          {/* Panel */}
-          <motion.div
+          <Motion.div
             className={`relative z-10 w-full ${wide ? 'max-w-4xl' : 'max-w-lg'} max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl`}
             style={{ background: 'var(--card-bg)', border: '1px solid rgba(255,255,255,0.08)' }}
             initial={{ scale: 0.92, opacity: 0, y: 20 }}
@@ -39,8 +37,8 @@ export default function Modal({ open, onClose, title, children, wide = false }) 
               </div>
             )}
             <div className="p-5">{children}</div>
-          </motion.div>
-        </motion.div>
+          </Motion.div>
+        </Motion.div>
       )}
     </AnimatePresence>
   );

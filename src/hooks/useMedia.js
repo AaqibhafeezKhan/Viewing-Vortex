@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { discoverMedia, getMediaDetails, getGenres, getWatchProviders } from '../api/tmdb.js';
 import { getRandomBook } from '../api/openLibrary.js';
 import { useState, useCallback } from 'react';
@@ -14,7 +14,6 @@ export function useGenres(type) {
 
 export function useRandomMedia(type, filters, enabled = true) {
   const [seed, setSeed] = useState(0);
-  const queryClient = useQueryClient();
 
   const query = useQuery({
     queryKey: ['discover', type, filters, seed],

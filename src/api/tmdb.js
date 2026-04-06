@@ -11,7 +11,7 @@ const api = (path, params = {}) => {
 export const getGenres = (type) => api(`/genre/${type}/list`, { language: 'en-US' });
 
 export const discoverMedia = (type, filters = {}) => {
-  const { genre, yearRange, minRating, language, region, runtime, sortBy } = filters;
+  const { genre, yearRange, minRating, language, runtime, sortBy } = filters;
   const params = {
     language: language || 'en-US',
     sort_by: sortBy || 'popularity.desc',

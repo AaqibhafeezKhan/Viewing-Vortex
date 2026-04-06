@@ -1,20 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSpecificMedia } from './useMedia.js';
 
-/**
- * Reads #type-{id} hash on mount and returns (type, id).
- * Also provides a function to write the hash on share.
- */
 export function useShareHash() {
-  const [shareTarget, setShareTarget] = useState(null); // { type, id }
-
-  useEffect(() => {
-    const hash = window.location.hash;
-    if (!hash) return;
-    // Expect format: #movie-12345 or #tv-67890
+  const [shareTarget, setShareTarget] = useState(() => {
+    const hash = typeof window !== 'undefined' ? window.location.hash : '';
+    if (!hash) return null;
     const match = hash.match(/^#(movie|tv)-(\d+)$/);
-    if (match) setShareTarget({ type: match[1], id: match[2] });
-  }, []);
+    return match ? { type: match[1], id: match[2] } : null;
+  });
 
   const writeHash = (type, id) => {
     window.history.replaceState(null, '', `#${type}-${id}`);

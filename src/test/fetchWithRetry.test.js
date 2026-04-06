@@ -23,7 +23,6 @@ describe('fetchWithRetry', () => {
     globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
     await expect(fetchWithRetry('https://api.example.com/test', 2)).rejects.toThrow('Network error');
-    // 1 initial + 2 retries = 3 calls
     expect(fetch).toHaveBeenCalledTimes(3);
   });
 

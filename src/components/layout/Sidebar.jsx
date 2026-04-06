@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { X, Heart, Eye, Star, Trash2, Download, Upload, ChevronRight } from 'lucide-react';
 import useStore from '../../store/useStore.js';
 import { exportWatchlist, importWatchlist, mergeWatchlists } from '../../utils/exportImport.js';
@@ -41,7 +41,7 @@ export default function Sidebar() {
       {/* Backdrop */}
       <AnimatePresence>
         {sidebarOpen && (
-          <motion.div
+          <Motion.div
             className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => setSidebarOpen(false)}
@@ -50,7 +50,7 @@ export default function Sidebar() {
       </AnimatePresence>
 
       {/* Sidebar panel */}
-      <motion.aside
+      <Motion.aside
         className="fixed top-0 right-0 h-full z-50 flex flex-col w-[360px] max-w-[95vw] overflow-hidden"
         style={{ background: 'var(--card-bg)', boxShadow: 'var(--shadow-lg)' }}
         initial={{ x: '100%' }}
@@ -88,7 +88,7 @@ export default function Sidebar() {
             >
               {t} {t === 'favorites' ? `(${favorites.length})` : `(${watched.length})`}
               {tab === t && (
-                <motion.div
+                <Motion.div
                   layoutId="sidebar-tab"
                   className="absolute bottom-0 left-0 right-0 h-0.5"
                   style={{ background: 'var(--secondary-color)' }}
@@ -129,7 +129,7 @@ export default function Sidebar() {
             <EmptyState icon={<Eye size={32} className="mb-3 opacity-30" />} message="Nothing watched yet. Press 'W' to mark something watched!" />
           )}
         </div>
-      </motion.aside>
+      </Motion.aside>
     </>
   );
 }
@@ -142,7 +142,7 @@ function FavoriteItem({ item, onRemove, onSetRating, onSetNotes, onMoveBack, isW
     : data?.cover || null;
 
   return (
-    <motion.div
+    <Motion.div
       layout
       initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }}
       className="rounded-xl p-3 flex gap-3 relative group"
@@ -199,7 +199,7 @@ function FavoriteItem({ item, onRemove, onSetRating, onSetNotes, onMoveBack, isW
           <Trash2 size={13} style={{ color: 'var(--text-secondary)' }} />
         </button>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
@@ -12,9 +12,9 @@ const TYPE_COLORS = { movie: '#3b82f6', tv: '#a855f7', book: '#22c55e' };
 
 export default function StatsDashboard() {
   const { statsOpen, setStatsOpen, favorites, watched } = useStore();
-  const all = [...favorites, ...watched];
 
   const stats = useMemo(() => {
+    const all = [...favorites, ...watched];
     const byType = { movie: 0, tv: 0, book: 0 };
     const genreMap = {};
     const decadeMap = {};
@@ -48,10 +48,10 @@ export default function StatsDashboard() {
       avgRating: ratingCount ? (ratingSum / ratingCount).toFixed(1) : 'N/A',
       totalRuntimeHrs: Math.floor(totalRuntime / 60),
     };
-  }, [all]);
+  }, [favorites, watched]);
 
   const SummaryCard = ({ icon, label, value, color }) => (
-    <motion.div
+    <Motion.div
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
       className="flex flex-col items-center gap-1 p-4 rounded-xl flex-1"
       style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
@@ -59,7 +59,7 @@ export default function StatsDashboard() {
       <div style={{ color }} className="mb-1">{icon}</div>
       <span className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{value}</span>
       <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{label}</span>
-    </motion.div>
+    </Motion.div>
   );
 
   const tooltipStyle = {
@@ -69,7 +69,7 @@ export default function StatsDashboard() {
 
   return (
     <Modal open={statsOpen} onClose={() => setStatsOpen(false)} title="📊 My Stats Dashboard" wide>
-      {all.length === 0 ? (
+      {favorites.length + watched.length === 0 ? (
         <div className="text-center py-12" style={{ color: 'var(--text-secondary)' }}>
           <p className="text-lg mb-2">No data yet!</p>
           <p className="text-sm">Save some favorites and mark things watched to see your stats.</p>

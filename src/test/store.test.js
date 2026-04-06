@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { act } from '@testing-library/react';
 import useStore from '../../store/useStore.js';
 
-// Reset store between tests
 const initialState = useStore.getState();
 
 beforeEach(() => {

@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import useStore from '../store/useStore.js';
 
-export function useKeyboard(pickAnother) {
+export function useKeyboard(callbacks = {}) {
+  const { onPickAnother, onSave, onWatched } = callbacks;
   const {
     activeSection, setActiveSection,
     sidebarOpen, setSidebarOpen,
-    setSearchOpen,
-    setStatsOpen,
-    setVortexOpen,
+    searchOpen, setSearchOpen,
+    statsOpen, setStatsOpen,
+    vortexOpen, setVortexOpen,
     shortcutsOpen, setShortcutsOpen,
     toggleTheme,
-    addFavorite,
   } = useStore();
 
   useEffect(() => {
@@ -18,19 +18,28 @@ export function useKeyboard(pickAnother) {
       const tag = document.activeElement?.tagName?.toLowerCase();
       if (['input', 'textarea', 'select'].includes(tag)) return;
 
-      switch (e.key) {
+      switch (e.key.toLowerCase()) {
         case ' ':
-        case 'ArrowRight':
+        case 'arrowright':
           e.preventDefault();
-          pickAnother?.();
+          onPickAnother?.();
           break;
-        case 'T':
+        case 's':
+          e.preventDefault();
+          onSave?.();
+          break;
+        case 'w':
+          e.preventDefault();
+          onWatched?.();
+          break;
         case 't':
           toggleTheme();
           break;
-        case 'F':
         case 'f':
           setSidebarOpen(!sidebarOpen);
+          break;
+        case 'v':
+          setVortexOpen(!vortexOpen);
           break;
         case '1':
           setActiveSection('movie');
@@ -48,7 +57,7 @@ export function useKeyboard(pickAnother) {
         case '?':
           setShortcutsOpen(!shortcutsOpen);
           break;
-        case 'Escape':
+        case 'escape':
           setSidebarOpen(false);
           setSearchOpen(false);
           setStatsOpen(false);
@@ -61,5 +70,9 @@ export function useKeyboard(pickAnother) {
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [activeSection, sidebarOpen, shortcutsOpen, pickAnother, setSidebarOpen, setSearchOpen, setStatsOpen, setVortexOpen, setShortcutsOpen, toggleTheme, setActiveSection]);
+  }, [
+    activeSection, sidebarOpen, searchOpen, statsOpen, vortexOpen, shortcutsOpen,
+    onPickAnother, onSave, onWatched, setSidebarOpen, setSearchOpen, setStatsOpen,
+    setVortexOpen, setShortcutsOpen, toggleTheme, setActiveSection
+  ]);
 }

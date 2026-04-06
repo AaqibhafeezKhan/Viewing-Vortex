@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
 export default function Button({ children, onClick, variant = 'primary', size = 'md', disabled, className = '', ...props }) {
   const variants = {
@@ -15,7 +15,7 @@ export default function Button({ children, onClick, variant = 'primary', size = 
   };
 
   return (
-    <motion.button
+    <Motion.button
       onClick={onClick}
       disabled={disabled}
       className={`inline-flex items-center justify-center font-medium rounded-full transition-all cursor-pointer border-0 ${sizes[size]} ${className}`}
@@ -25,6 +25,6 @@ export default function Button({ children, onClick, variant = 'primary', size = 
       {...props}
     >
       {children}
-    </motion.button>
+    </Motion.button>
   );
 }

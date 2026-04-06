@@ -28,7 +28,6 @@ export default function StreamingBadges({ type, id }) {
       <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>
         Where to Watch
       </p>
-      {/* Tab pills */}
       <div className="flex gap-1 mb-3">
         {availableTabs.map((t) => (
           <button
@@ -45,7 +44,6 @@ export default function StreamingBadges({ type, id }) {
           </button>
         ))}
       </div>
-      {/* Provider logos */}
       <div className="flex flex-wrap gap-2">
         {current.map((p) => (
           <a

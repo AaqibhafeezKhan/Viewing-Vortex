@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 import { useToastManager, dismissToast } from '../../hooks/useToast.js';
 
@@ -18,7 +18,7 @@ export default function ToastContainer() {
         {toasts.map((t) => {
           const c = colors[t.type] || colors.info;
           return (
-            <motion.div
+            <Motion.div
               key={t.id}
               initial={{ x: 120, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -36,7 +36,7 @@ export default function ToastContainer() {
               >
                 <X size={14} style={{ color: 'var(--text-secondary)' }} />
               </button>
-            </motion.div>
+            </Motion.div>
           );
         })}
       </AnimatePresence>
