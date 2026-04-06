@@ -1,0 +1,78 @@
+export const MOODS = [
+  {
+    id: 'drama',
+    emoji: '🎭',
+    label: 'Drama',
+    description: 'Emotional & moving stories',
+    genres: [18],
+    minRating: 7.0,
+    gradient: 'from-purple-900/80 to-indigo-800/80',
+  },
+  {
+    id: 'comedy',
+    emoji: '😂',
+    label: 'Comedy',
+    description: 'Laugh out loud fun',
+    genres: [35],
+    minRating: 6.5,
+    gradient: 'from-yellow-700/80 to-orange-600/80',
+  },
+  {
+    id: 'horror',
+    emoji: '😱',
+    label: 'Horror',
+    description: 'Spine-chilling scares',
+    genres: [27],
+    minRating: 6.0,
+    gradient: 'from-red-900/80 to-gray-900/80',
+  },
+  {
+    id: 'action',
+    emoji: '💥',
+    label: 'Action',
+    description: 'High-octane thrills',
+    genres: [28, 12],
+    minRating: 6.5,
+    gradient: 'from-orange-800/80 to-red-700/80',
+  },
+  {
+    id: 'mindbending',
+    emoji: '🧠',
+    label: 'Mind-Bending',
+    description: 'Twists & thought-provokers',
+    genres: [878, 9648],
+    minRating: 7.5,
+    gradient: 'from-cyan-900/80 to-blue-800/80',
+  },
+  {
+    id: 'romance',
+    emoji: '💕',
+    label: 'Romance',
+    description: 'Love stories & connection',
+    genres: [10749],
+    minRating: 6.5,
+    gradient: 'from-pink-800/80 to-rose-700/80',
+  },
+  {
+    id: 'documentary',
+    emoji: '🌍',
+    label: 'Documentary',
+    description: 'Real world stories',
+    genres: [99],
+    minRating: 7.0,
+    gradient: 'from-green-900/80 to-teal-800/80',
+  },
+  {
+    id: 'family',
+    emoji: '👨‍👩‍👧',
+    label: 'Family',
+    description: 'Fun for everyone',
+    genres: [10751, 16],
+    minRating: 6.0,
+    gradient: 'from-sky-800/80 to-blue-700/80',
+  },
+];
+
+export function getMoodById(id) {
+  return MOODS.find((m) => m.id === id);
+}

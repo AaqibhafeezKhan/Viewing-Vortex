@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="vortexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="45" fill="none" stroke="url(#vortexGrad)" stroke-width="10" stroke-dasharray="20 10 40 20" />
+  <circle cx="50" cy="50" r="30" fill="none" stroke="url(#vortexGrad)" stroke-width="8" stroke-dasharray="15 15 25 15" transform="rotate(45 50 50)" />
+  <circle cx="50" cy="50" r="15" fill="none" stroke="url(#vortexGrad)" stroke-width="6" stroke-dasharray="10 10 15 10" transform="rotate(90 50 50)" />
+</svg>

@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables (light theme) ─────────────────────── */
+:root {
+  --primary-color: #1e3a8a;
+  --secondary-color: #3b82f6;
+  --accent-color: #f97316;
+  --background-color: #f9fafb;
+  --card-bg: #ffffff;
+
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-light: #f9fafb;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.08);
+  --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ── Dark theme ───────────────────────────────────────── */
+[data-theme='dark'] {
+  --primary-color: #1e40af;
+  --secondary-color: #60a5fa;
+  --accent-color: #fb923c;
+  --background-color: #0d1117;
+  --card-bg: #161b22;
+
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-light: #f0f6fc;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Resets & Base ────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+::-webkit-scrollbar-thumb { background: var(--secondary-color); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+
+/* ── Focus rings ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Selections ───────────────────────────────────────── */
+::selection {
+  background: var(--secondary-color);
+  color: white;
+}
+
+/* ── Utilities ────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .glass {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Horizontal scroll rails ──────────────────────────── */
+.scroll-rail {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+}
+
+.scroll-rail::-webkit-scrollbar { height: 4px; }
+
+/* ── Star rating ──────────────────────────────────────── */
+.star-rating {
+  display: flex;
+  gap: 2px;
+}
+.star-rating button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  transition: transform var(--transition-fast);
+  color: #6b7280;
+}
+.star-rating button.active { color: var(--accent-color); }
+.star-rating button:hover { transform: scale(1.2); }
+
+/* ── Backdrop blur card ───────────────────────────────── */
+.media-backdrop {
+  position: absolute;
+  inset: 0;
+  filter: blur(20px);
+  transform: scale(1.1);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.media-backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.4) 100%);
+  z-index: 1;
+}

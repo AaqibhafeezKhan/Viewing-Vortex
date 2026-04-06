@@ -1,39 +1,47 @@
-
-
 # Viewing Vortex
 
-Viewing Vortex is a web application that allows users to discover random movies, TV shows, and books. The app fetches data from [TMDB](https://www.themoviedb.org/documentation/api) for movies and TV shows and [Open Library](https://openlibrary.org/developers/api) for books. Users can save their favorites and toggle between light and dark themes.
+Viewing Vortex is a modern web application for discovering random movies, TV shows, and books. It serves as a full rewrite of the original "MediaCurator" app, featuring a sleek, dynamic UI tailored to help you find your next great watch or read.
 
-## Features
+**[Looking for the classic experience? → Legacy App](/legacy/index.html)**
 
-- **Random Discovery:** Get random movies, TV shows, or books with a single click.
-- **Detailed Information:** View detailed information such as runtime, ratings, and descriptions.
-- **Trailer Playback:** Watch trailers for movies and TV shows on YouTube.
-- **Favorites:** Save your favorite media items to local storage.
-- **Theme Toggle:** Switch between light and dark themes.
+## 🚀 Tech Stack
 
+- **Framework**: React 18 (Vite)
+- **Styling**: Tailwind CSS v3 + CSS Variables
+- **State**: Zustand (with localStorage persistence)
+- **Data Fetching**: TanStack Query v5
+- **Routing**: React Router v6 (Hash-based sharing)
+- **Animation**: Framer Motion
+- **Additional Tools**: Lucide React (Icons), Recharts (Stats Dashboard), html2canvas (Image Sharing), Vite PWA.
 
-## Installation
+## ✨ Features
 
-1. **Clone the repository:**
+1. **Random Discovery**: Discover media across three distinct categories: Movies, TV Shows, and Books.
+2. **Advanced Filtering**: Use debounced smart filters like Year Sliders, Genre Pills, and Ratings to refine your picks.
+3. **Vortex Mode (Mood Picker)**: Don't know what you want? Pick a mood (e.g. Action, Mind-Bending, Romance) and let the app randomly fetch a highly-rated title matching that vibe!
+4. **Streaming Availability**: View where to Stream, Rent, or Buy for your specified region.
+5. **My Collection (Favorites & Watched)**: Save your favorites or mark them as watched. Include personal star ratings and notes!
+6. **Detailed Media Cards**: Browse cast strips, similar title rails, YouTube trailers, collection badges, and beautifully blurred gradient backdrops.
+7. **Stats Dashboard**: Analyze your viewing patterns with visual breakdowns of your saves using `Recharts`.
+8. **Export / Import**: Easily download your Watchlist as JSON and move it across devices.
+9. **Global Keyboard Shortcuts**: E.g. Press `Space` to roll again, `S` to Save, `W` to mark Watched, `T` to toggle themes, `/` to search.
+10. **Rich Sharing**: Effortlessly generate a PNG card of your media or instantly copy a smart deep-link to share with friends.
+11. **PWA Support**: Installable offline-capable app with caching via Workbox plugin.
 
+## 🛠 Setup Instructions
+
+1. **Prerequisites**: Node.js v18+ and npm.
+2. **Install Dependencies**:
    ```bash
-   git clone https://github.com/yourusername/random-media-picker.git
-   cd random-media-picker
+   npm install
+   ```
+3. **Run Dev Server**:
+   ```bash
+   npm run dev
+   ```
+4. **Run Unit Tests**:
+   ```bash
+   npm test
    ```
 
-2. **Open the project:**
-
-   Simply open the `index.html` file in your favorite browser.
-
-   ```bash
-   open index.html
-   ```
-  ```
-
-## Usage
-
-- Click on the navigation buttons to switch between Movies, TV Shows, and Books.
-- Click the **Pick Another** button to load a new random item.
-- Use the **Save to Favorites** button to add an item to your favorites list.
-- Toggle the theme using the theme button in the header.
+*Enjoy exploring the Vortex!*
