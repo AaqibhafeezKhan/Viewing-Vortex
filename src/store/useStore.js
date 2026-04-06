@@ -63,7 +63,6 @@ const useStore = create(
             watched: [...watched, { ...item, watchedAt: new Date().toISOString() }],
           });
         } else {
-          // Mark directly from current result
           const watchedItem = { type, dateAdded: new Date().toISOString(), watchedAt: new Date().toISOString(), rating: 0, notes: '' };
           set({ watched: [...watched, watchedItem] });
         }
@@ -72,7 +71,7 @@ const useStore = create(
         const { watched, favorites } = get();
         const item = watched.find((w) => w.data?.id === id && w.type === type);
         if (item) {
-          const { watchedAt, ...rest } = item;
+          const { watchedAt: _watchedAt, ...rest } = item;
           set({
             watched: watched.filter((w) => !(w.data?.id === id && w.type === type)),
             favorites: [...favorites, rest],
@@ -115,6 +114,8 @@ const useStore = create(
       setVortexOpen: (v) => set({ vortexOpen: v }),
       shortcutsOpen: false,
       setShortcutsOpen: (v) => set({ shortcutsOpen: v }),
+      selectedMedia: null,
+      setSelectedMedia: (media) => set({ selectedMedia: media, activeSection: media?.type || get().activeSection }),
     }),
     {
       name: 'viewing-vortex-store',
@@ -127,6 +128,7 @@ const useStore = create(
         watched: state.watched,
         recentSearches: state.recentSearches,
         activeSection: state.activeSection,
+        selectedMedia: state.selectedMedia,
       }),
     }
   )

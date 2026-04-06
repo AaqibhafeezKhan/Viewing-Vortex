@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Clock } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { searchMulti } from '../../api/tmdb.js';
+import { searchBooks, normalizeBook } from '../../api/openLibrary.js';
 import useStore from '../../store/useStore.js';
 import { TMDB_IMAGE_BASE } from '../../api/constants.js';
 import { formatYear } from '../../utils/formatters.js';
@@ -20,7 +21,7 @@ function useDebounce(value, delay) {
 const TYPE_COLOR = { movie: 'blue', tv: 'purple', person: 'gray', book: 'green' };
 
 export default function SearchBar() {
-  const { searchOpen, setSearchOpen, recentSearches, addRecentSearch, setActiveSection } = useStore();
+  const { searchOpen, setSearchOpen, recentSearches, addRecentSearch, setSelectedMedia } = useStore();
   const [query, setQuery] = useState('');
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const inputRef = useRef();
@@ -36,7 +37,26 @@ export default function SearchBar() {
 
   const { data: results = [], isLoading } = useQuery({
     queryKey: ['search', debouncedQuery],
-    queryFn: () => searchMulti(debouncedQuery).then((d) => d.results?.slice(0, 8) || []),
+    queryFn: async () => {
+      try {
+        const [tmdbRes, booksRes] = await Promise.allSettled([
+          searchMulti(debouncedQuery),
+          searchBooks(debouncedQuery)
+        ]);
+        const tmdbResults = tmdbRes.status === 'fulfilled' && tmdbRes.value?.results ? tmdbRes.value.results : [];
+        const books = booksRes.status === 'fulfilled' && booksRes.value?.docs ? booksRes.value.docs : [];
+        const normalizedBooks = books.slice(0, 3).map((b) => ({
+          ...normalizeBook(b),
+          media_type: 'book',
+          coverMedium: b.cover_i ? `https://covers.openlibrary.org/b/id/${b.cover_i}-M.jpg` : null,
+          title: b.title,
+        }));
+        return [...tmdbResults, ...normalizedBooks].slice(0, 8);
+      } catch (err) {
+        console.error("Search error:", err);
+        return [];
+      }
+    },
     enabled: debouncedQuery.length >= 2,
     staleTime: 30_000,
   });
@@ -48,9 +68,9 @@ export default function SearchBar() {
   const handleSelect = (item) => {
     if (item._isRecent) { setQuery(item.query); return; }
     const type = item.media_type;
-    if (type === 'movie' || type === 'tv') {
+    if (type === 'movie' || type === 'tv' || type === 'book') {
       addRecentSearch(query || item.title || item.name);
-      setActiveSection(type);
+      setSelectedMedia({ id: item.id, type, data: item });
       setSearchOpen(false);
     }
   };
@@ -129,9 +149,9 @@ export default function SearchBar() {
                       </>
                     ) : (
                       <>
-                        {(item.poster_path || item.profile_path) ? (
+                        {(item.poster_path || item.profile_path || item.coverMedium) ? (
                           <img
-                            src={`${TMDB_IMAGE_BASE}/w92${item.poster_path || item.profile_path}`}
+                            src={item.media_type === 'book' ? item.coverMedium : `${TMDB_IMAGE_BASE}/w92${item.poster_path || item.profile_path}`}
                             alt={item.title || item.name}
                             className="rounded object-cover flex-shrink-0"
                             style={{ width: 32, height: 48 }}
@@ -139,7 +159,7 @@ export default function SearchBar() {
                         ) : (
                           <div className="rounded flex-shrink-0 flex items-center justify-center text-lg"
                             style={{ width: 32, height: 48, background: 'rgba(255,255,255,0.08)' }}>
-                            {item.media_type === 'movie' ? '🎬' : item.media_type === 'tv' ? '📺' : '👤'}
+                            {item.media_type === 'movie' ? '🎬' : item.media_type === 'tv' ? '📺' : item.media_type === 'book' ? '📚' : '👤'}
                           </div>
                         )}
                         <div className="flex-1 min-w-0">
@@ -147,7 +167,8 @@ export default function SearchBar() {
                             {item.title || item.name}
                           </p>
                           <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-                            {formatYear(item.release_date || item.first_air_date)}
+                            {item.media_type === 'book' && item.author ? `${item.author} · ` : ''}
+                            {formatYear(item.release_date || item.first_air_date || item.year)}
                           </p>
                         </div>
                         <Badge color={TYPE_COLOR[item.media_type] || 'gray'} size="xs">

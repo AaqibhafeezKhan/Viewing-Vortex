@@ -12,23 +12,33 @@ import { AlertCircle, RefreshCw } from 'lucide-react';
 import Button from '../ui/Button.jsx';
 
 export default function SectionView({ type }) {
-  const { filters } = useStore();
+  const { filters, selectedMedia, setSelectedMedia } = useStore();
   const [seed, setSeed] = useState(0);
   const [specificId, setSpecificId] = useState(null);
   const cardRef = useRef();
 
   const pickAnother = useCallback(() => {
+    setSelectedMedia(null);
     setSpecificId(null);
     setSeed((s) => s + 1);
-  }, []);
+  }, [setSelectedMedia]);
 
   useKeyboard(pickAnother);
 
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ['media', type, filters, seed, specificId],
     queryFn: async () => {
+      // 1. Check for specific choice from store (Search)
+      if (selectedMedia && selectedMedia.type === type) {
+        const id = selectedMedia.id;
+        // Optionally use data if already fetched, but details API might have more
+        return getMediaDetails(type, id, filters.language);
+      }
+      // 2. Check for internal "similar" pick
       if (specificId) return getMediaDetails(type, specificId, filters.language);
+      // 3. Random pick for books
       if (type === 'book') return getRandomBook();
+      // 4. Discover random movie/tv
       const list = await discoverMedia(type, filters);
       const results = list.results || [];
       if (!results.length) throw new Error('No results found. Try adjusting your filters.');

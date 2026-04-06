@@ -17,7 +17,7 @@ export function formatDate(dateStr) {
 
 export function formatYear(dateStr) {
   if (!dateStr) return 'N/A';
-  return dateStr.substring(0, 4);
+  return String(dateStr).substring(0, 4);
 }
 
 export function formatRating(rating) {
